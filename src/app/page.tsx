@@ -1,56 +1,34 @@
 "use client";
-import { useState } from "react";
-import axios from "axios";
+import Link from "next/link";
 
-export default function RegisterPage() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    schoolGrade: "DAM",
-    role: "STUDENT",
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:8080/api/users/register", formData);
-      alert("¡Usuario registrado con éxito!");
-      console.log("Respuesta:", response.data);
-    } catch (error) {
-      console.error(error);
-      alert("Error al conectar con el servidor de Java");
-    }
-  };
-
+export default function PaginaInicio() {
   return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-100">
-        <form onSubmit={handleSubmit} className="bg-white p-10 rounded-xl shadow-lg w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-6 text-center text-black">Registro LumaraFit</h2>
+      <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center text-white px-4">
+        <h1 className="text-6xl font-black text-cyan-500 mb-4 tracking-tighter">LUMARA FIT</h1>
+        <p className="text-xl text-gray-400 mb-10 text-center max-w-lg">
+          Tu plataforma inteligente de entrenamiento basada en biotipos y antropometría.
+        </p>
 
-          <input
-              type="text" placeholder="Tu Nombre"
-              className="w-full p-3 mb-4 border rounded text-black bg-white"
-              onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-          />
+        <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md">
+          <Link href="/usuarios/registro" className="flex-1 bg-gray-800 hover:bg-gray-700 text-white text-center py-4 rounded-xl font-bold border border-gray-700 transition-all">
+            Crear Cuenta
+          </Link>
 
-          <input
-              type="email" placeholder="Email"
-              className="w-full p-3 mb-4 border rounded text-black bg-white"
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
-          />
 
-          <input
-              type="password" placeholder="Contraseña"
-              className="w-full p-3 mb-6 border rounded text-black bg-white"
-              onChange={(e) => setFormData({...formData, password: e.target.value})}
-          />
+          <Link href="/gimnasio" className="flex-1 bg-gray-800 hover:bg-gray-700 text-white text-center py-4 rounded-xl font-bold border border-gray-700 transition-all">
+            Ir al Gimnasio
+          </Link>
+        </div>
 
-          <button type="submit" className="w-full bg-cyan-700 text-white p-3 rounded-lg font-bold hover:bg-cyan-700-700 transition-all">
-            Registrarme ahora
-          </button>
-        </form>
+        <div className="flex flex-col sm:row gap-4 w-full max-w-md">
+          <Link href="/ingreso" className="flex-1 bg-cyan-700 hover:bg-cyan-600 text-white text-center py-4 rounded-xl font-bold transition-all shadow-lg">
+            Ingresar
+          </Link>
+          </div>
+
+        <footer className="absolute bottom-8 text-gray-600 text-sm">
+          © 2026 Proyecto Intermodular LumaraFit
+        </footer>
       </div>
   );
 }
