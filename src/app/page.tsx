@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function PaginaInicio() {
   return (
       <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center text-white px-4">
-        <h1 className="text-6xl font-black text-cyan-500 mb-4 tracking-tighter">LUMARA FIT</h1>
+        <h1 className="text-6xl font-black text-cyan-500 mb-4 tracking-tighter">LUMARA-FIT </h1>
         <p className="text-xl text-gray-400 mb-10 text-center max-w-lg">
           Tu plataforma inteligente de entrenamiento basada en biotipos y antropometría.
         </p>
