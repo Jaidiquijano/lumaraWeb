@@ -103,11 +103,7 @@ export default function PaginaGimnasioGeneral() {
                     </div>
                 </div>
             </header>
-
-            {/* 2. CONTENIDO PRINCIPAL */}
             <main className="max-w-6xl mx-auto p-6 md:p-10 w-full flex-grow space-y-12">
-
-                {/* Saludo exclusivo para Alumnos y Profesores */}
                 {rol !== "INVITADO" && (
                     <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                         <h2 className="text-2xl font-extrabold text-slate-900">¡Hola de nuevo, {nombreUsuario}!</h2>
@@ -185,11 +181,7 @@ export default function PaginaGimnasioGeneral() {
                                 </div>
                             </div>
                         </div>
-
-                        {/* NUEVO CONTENEDOR: LISTADO DE EVALUACIONES EN TABLA + ACCIÓN */}
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-2">
-
-                            {/* Tabla de Historial Clínico/Físico (Ocupa 2 columnas) */}
                             <div className="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
                                 <div className="flex justify-between items-center mb-4">
                                     <h4 className="text-[10px] font-bold text-orange-600 uppercase tracking-widest">
@@ -234,7 +226,6 @@ export default function PaginaGimnasioGeneral() {
                                 </div>
                             </div>
 
-                            {/* Tarjeta de Acción Rápida: Nueva Evaluación (Ocupa 1 columna) */}
                             <div
                                 onClick={() => router.push("/evaluacion")}
                                 className="bg-gradient-to-br from-teal-700 to-teal-800 text-white p-6 rounded-3xl shadow-md cursor-pointer hover:opacity-95 transition-all flex flex-col justify-center items-center text-center group border border-teal-600 min-h-[140px]"
@@ -341,10 +332,10 @@ export default function PaginaGimnasioGeneral() {
                         <section className="w-full flex justify-center items-center py-6">
                             <div className="w-52 h-52 rounded-full bg-gradient-to-br from-teal-950 to-teal-900 border-4 border-dashed border-teal-500 flex flex-col items-center justify-center text-center p-4 shadow-xl shrink-0 z-10 relative transform hover:scale-105 transition-transform duration-300 animate-bounce">
                                 <div className="text-2xl mb-1"><span>💪</span></div>
-                                <p className="text-[9px] font-bold text-teal-200 tracking-tight uppercase">Nutrición LumaraFit</p>
-                                <h4 className="text-[11px] font-black text-white uppercase tracking-tight my-0.5 italic">Combo Comida Power</h4>
-                                <p className="text-[9px] leading-tight text-teal-100 px-2 font-medium">Plato de Proteínas Escolar + Batido Natural por sólo</p>
-                                <span className="text-lg font-black text-orange-400 font-mono tracking-tighter mt-1 bg-white/5 px-2 py-0.5 rounded-md shadow-inner">4.99€</span>
+                                <p className="text-[9px] font-bold text-teal-200 tracking-tight uppercase">Complementos LumaraFit</p>
+                                <h4 className="text-[11px] font-black text-white uppercase tracking-tight my-0.5 italic">Proteina</h4>
+                                <p className="text-[9px] leading-tight text-teal-100 px-2 font-medium">Proteina Whey con 20% de descuento</p>
+                                <span className="text-lg font-black text-orange-400 font-mono tracking-tighter mt-1 bg-white/5 px-2 py-0.5 rounded-md shadow-inner">15€</span>
                                 <div className="text-xs mt-1"><span>🔥</span></div>
                             </div>
                         </section>
