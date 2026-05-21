@@ -13,9 +13,6 @@ export interface PerfilFisicoResponse {
     usuarioId: string;
     peso: number;
     altura: number;
-    porcentajeGrasaCorporal: number;
-    circunferenciaBrazo: number;
-    circunferenciaCintura: number;
     somatotipo: string;
     puntuacionCarter: number[];
     fechaEvaluacion: string;
