@@ -13,14 +13,11 @@ export default function PerfilDetalleAlumno() {
     const [cargando, setCargando] = useState<boolean>(true);
 
     useEffect(() => {
-        // En MongoDB el ID es un String alfanumérico largo, NO un número.
-        // Forzamos la extracción limpia del parámetro de la URL.
         const alumnoId = id ? (Array.isArray(id) ? id[0] : id) : null;
 
         if (alumnoId && alumnoId !== "undefined") {
             console.log("Solicitando datos a Spring Boot para el ID de MongoDB:", alumnoId);
 
-            // 1. Obtener los datos básicos del alumno
             axios.get(`http://localhost:8080/api/usuarios/${alumnoId}`)
                 .then(res => {
                     console.log("¡Éxito! Datos del alumno recuperados de MongoDB:", res.data);
@@ -30,7 +27,6 @@ export default function PerfilDetalleAlumno() {
                     console.error("Error al buscar el usuario en MongoDB. Revisa si el ID coincide exactamente:", err);
                 });
 
-            // 2. Obtener el historial físico completo usando el String ID
             axios.get(`http://localhost:8080/api/entrenamiento/historial/${alumnoId}`)
                 .then(res => {
                     if (res.data && res.data.length > 0) {
@@ -47,7 +43,7 @@ export default function PerfilDetalleAlumno() {
                     setHistorialEvaluaciones([]);
                 })
                 .finally(() => {
-                    setCargando(false); // Quitamos la pantalla de carga de forma segura
+                    setCargando(false);
                 });
         }
     }, [id]);
@@ -70,11 +66,8 @@ export default function PerfilDetalleAlumno() {
                     </button>
                 </div>
             </header>
-
-            {/* CUERPO PRINCIPAL DE LA FICHA */}
             <main className="max-w-4xl mx-auto p-6 md:p-10 w-full flex-grow space-y-8">
 
-                {/* Cabecera del Alumno */}
                 <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div className="flex items-center gap-4">
                         <div className="w-16 h-16 bg-gradient-to-br from-teal-600 to-teal-800 text-white rounded-2xl flex items-center justify-center text-2xl font-black shadow-md shadow-teal-700/20">
@@ -88,7 +81,6 @@ export default function PerfilDetalleAlumno() {
                         </div>
                     </div>
 
-                    {/* Badge del Biotipo */}
                     <div className="bg-orange-50 border border-orange-200 px-4 py-3 rounded-xl flex items-center gap-3">
                         <span className="text-2xl">📊</span>
                         <div>
@@ -100,10 +92,8 @@ export default function PerfilDetalleAlumno() {
                     </div>
                 </div>
 
-                {/* Bloque de Información en dos Columnas */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                    {/* Columna Corta: Datos Escolares e Institucionales */}
                     <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4 h-fit">
                         <h3 className="text-[10px] font-bold text-orange-600 uppercase tracking-widest border-b border-slate-100 pb-2">
                             Ficha Institucional
@@ -125,10 +115,7 @@ export default function PerfilDetalleAlumno() {
                         </div>
                     </div>
 
-                    {/* Columna Larga: Gráfica Antropométrica Física e Historial en Tabla */}
                     <div className="lg:col-span-2 space-y-6">
-
-                        {/* Tarjeta Superior: Gráficas de las últimas medidas */}
                         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
                             <h3 className="text-[10px] font-bold text-orange-600 uppercase tracking-widest border-b border-slate-100 pb-2">
                                 Métricas Antropométricas del Alumno
@@ -136,7 +123,6 @@ export default function PerfilDetalleAlumno() {
 
                             {ultimoPerfil ? (
                                 <div className="space-y-6 py-2">
-                                    {/* Barra de Peso */}
                                     <div className="space-y-1.5">
                                         <div className="flex justify-between text-xs font-medium">
                                             <span className="text-slate-600">Masa Corporal (Peso Reciente)</span>
@@ -149,8 +135,6 @@ export default function PerfilDetalleAlumno() {
                                             ></div>
                                         </div>
                                     </div>
-
-                                    {/* Barra de Altura */}
                                     <div className="space-y-1.5">
                                         <div className="flex justify-between text-xs font-medium">
                                             <span className="text-slate-600">Estatura Corporal (Altura Métrica)</span>
@@ -170,8 +154,6 @@ export default function PerfilDetalleAlumno() {
                                 </div>
                             )}
                         </div>
-
-                        {/* ¡NUEVO! Tarjeta Inferior: Tabla Dinámica del Historial Completo del Alumno */}
                         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
                             <h3 className="text-[10px] font-bold text-teal-700 uppercase tracking-widest border-b border-slate-100 pb-2">
                                 📋 Historial Completo de Evaluaciones
@@ -220,7 +202,6 @@ export default function PerfilDetalleAlumno() {
 
             </main>
 
-            {/* PIE DE PÁGINA CORPORATIVO */}
             <footer className="bg-slate-900 text-slate-400 text-xs py-5 border-t border-slate-800">
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <p>&copy; {new Date().getFullYear()} FPLumara • LumaraFit Ficha Técnica.</p>

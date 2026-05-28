@@ -7,7 +7,6 @@ export default function PaginaEvaluacion() {
     const router = useRouter();
     const [cargando, setCargando] = useState(false);
 
-    // Guardamos los inputs como strings para evitar ceros molestos o fallos con NaN
     const [formData, setFormData] = useState({
         usuarioId: typeof window !== "undefined" ? localStorage.getItem("usuarioId") : null,
         peso: "",
@@ -62,7 +61,6 @@ export default function PaginaEvaluacion() {
                 </div>
 
                 <div className="space-y-4">
-                    {/* Campo Peso */}
                     <div>
                         <label className="block text-xs font-bold text-slate-500 mb-1.5 uppercase ml-1">Peso (kg)</label>
                         <input
@@ -75,8 +73,6 @@ export default function PaginaEvaluacion() {
                             required
                         />
                     </div>
-
-                    {/* Campo Altura */}
                     <div>
                         <label className="block text-xs font-bold text-slate-500 mb-1.5 uppercase ml-1">Altura (cm)</label>
                         <input
@@ -90,7 +86,6 @@ export default function PaginaEvaluacion() {
                     </div>
                 </div>
 
-                {/* Bloque de Botones */}
                 <div className="space-y-3 pt-2">
                     <button
                         type="submit"

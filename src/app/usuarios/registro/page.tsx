@@ -12,7 +12,7 @@ export default function RegisterPage() {
         email: "",
         password: "",
         curso: "DAM",
-        rol: "ESTUDIANTE", // Por defecto se queda en ESTUDIANTE
+        rol: "ESTUDIANTE",
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -33,7 +33,6 @@ export default function RegisterPage() {
         <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4">
             <form onSubmit={handleSubmit} className="bg-white p-8 md:p-10 rounded-3xl shadow-xl w-full max-w-sm border border-slate-200 space-y-5">
 
-                {/* Logotipo o Cabecera Institucional */}
                 <div className="flex flex-col items-center text-center">
                     <h2 className="text-2xl font-black text-teal-700 tracking-tight">
                         Lumara-Fit
@@ -43,7 +42,6 @@ export default function RegisterPage() {
                     </p>
                 </div>
 
-                {/* Bloque de Campos del Formulario */}
                 <div className="space-y-4">
                     <div>
                         <label className="block text-xs font-bold text-slate-500 uppercase mb-1 ml-1">Nombre</label>
@@ -78,7 +76,6 @@ export default function RegisterPage() {
                         />
                     </div>
 
-                    {/* ¡NUEVO CAMPO! Selector de Rol Institucional */}
                     <div>
                         <label className="block text-xs font-bold text-slate-500 uppercase mb-1 ml-1">Tipo de Usuario (Rol)</label>
                         <select
@@ -103,7 +100,6 @@ export default function RegisterPage() {
                     </div>
                 </div>
 
-                {/* Botón de Registro Naranja Corporativo */}
                 <div className="pt-2">
                     <button
                         type="submit"
@@ -113,7 +109,6 @@ export default function RegisterPage() {
                     </button>
                 </div>
 
-                {/* Enlace para regresar al login */}
                 <div className="text-center pt-2 border-t border-slate-100">
                     <button
                         type="button"

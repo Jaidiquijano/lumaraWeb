@@ -1,111 +1,73 @@
 "use client";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { UsuarioResponse } from "@/app/types";
+import Link from "next/link";
 
-export default function PaginaListaUsuarios() {
-    const router = useRouter();
-    const [usuarios, setUsuarios] = useState<UsuarioResponse[]>([]);
-    const [cargando, setCargando] = useState(true);
-
-    useEffect(() => {
-        axios.get("http://localhost:8080/api/usuarios")
-            .then(res => {
-                setUsuarios(res.data);
-                setCargando(false);
-            })
-            .catch(err => {
-                console.error("Error al cargar usuarios:", err);
-                setCargando(false);
-            });
-    }, []);
-
+export default function PaginaInicio() {
     return (
-        <div className="min-h-screen bg-slate-50 text-slate-800 p-6 md:p-10">
-            <div className="max-w-5xl mx-auto">
+        <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center text-slate-800 px-4 relative overflow-hidden">
 
-                {/* Cabecera Limpia e Institucional */}
-                <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-                    <div>
-                        <h1 className="text-2xl font-black text-slate-900 tracking-tight uppercase">
-                            Comunidad <span className="text-teal-700">LumaraFit</span>
-                        </h1>
-                        <p className="text-slate-400 text-xs mt-0.5">
-                            Directorio oficial de estudiantes registrados en el centro
-                        </p>
-                    </div>
-                    <button
-                        onClick={() => router.push("/gimnasio")}
-                        className="text-xs bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 px-4 py-2 rounded-xl font-bold transition-all shadow-sm flex items-center gap-1.5"
+            {/* IMAGEN DE FONDO COMO MARCA DE AGUA ESTILIZADA */}
+            <div
+                className="absolute inset-0 z-0 opacity-10 bg-center bg-no-repeat bg-contain pointer-events-none transform scale-90 sm:scale-75"
+                style={{ backgroundImage: "url('/background-gym.jpg')" }}
+            />
+
+            {/* CONTENIDO PRINCIPAL (Con z-10 para asegurar que flote por encima del fondo) */}
+            <div className="z-10 flex flex-col items-center justify-center w-full max-w-sm text-center">
+
+                {/* Contenedor Premium con tu Icono */}
+                <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-teal-50 to-white border-2 border-teal-600/20 flex items-center justify-center shadow-xl shadow-teal-700/10 mb-6 p-4 transform hover:scale-105 transition-all duration-300">
+                    <img
+                        src="/favicon.ico"
+                        alt="LumaraFit Logo"
+                        className="w-full h-full object-contain drop-shadow-md animate-pulse"
+                        style={{ animationDuration: '3s' }}
+                    />
+                </div>
+
+                {/* Título Principal Institucional */}
+                <h1 className="text-5xl md:text-6xl font-black text-slate-900 mb-3 tracking-tight">
+                    LUMARA-<span className="text-teal-700">FIT</span>
+                </h1>
+
+                <p className="text-sm text-slate-400 mb-10 font-medium leading-relaxed max-w-xs">
+                    Tu plataforma inteligente de entrenamiento basada en biotipos y antropometría escolar.
+                </p>
+
+                {/* Contenedor de Botones de Acceso */}
+                <div className="w-full space-y-4">
+
+                    {/* Botón de Acción Primario (Ingresar) */}
+                    <Link
+                        href="/ingreso"
+                        className="block w-full bg-orange-600 hover:bg-orange-500 text-white text-center py-4 rounded-2xl font-extrabold transition-all shadow-md shadow-orange-600/10 uppercase tracking-wider text-sm active:scale-[0.98]"
                     >
-                        <span>←</span> Volver al Panel
-                    </button>
-                </header>
+                        Ingresar al Sistema
+                    </Link>
 
-                {cargando ? (
-                    <div className="flex justify-center items-center py-20">
-                        <p className="text-slate-400 text-sm font-medium animate-pulse">
-                            Cargando directorio de la comunidad...
-                        </p>
+                    {/* Botones Secundarios en Fila */}
+                    <div className="flex flex-col sm:flex-row gap-3 w-full">
+                        <Link
+                            href="/usuarios/registro"
+                            className="flex-1 bg-white hover:bg-slate-50 text-slate-600 text-center py-3.5 rounded-xl font-bold border border-slate-200 transition-all shadow-sm text-xs uppercase tracking-wide flex items-center justify-center"
+                        >
+                            Crear Cuenta
+                        </Link>
+
+                        <Link
+                            href="/gimnasio"
+                            className="flex-1 bg-teal-50 hover:bg-teal-100 text-teal-700 text-center py-3.5 rounded-xl font-bold border border-teal-100 transition-all shadow-sm text-xs uppercase tracking-wide flex items-center justify-center"
+                        >
+                            Ir al Gimnasio
+                        </Link>
                     </div>
-                ) : (
-                    /* Tabla Moderna Limpia */
-                    <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left border-collapse text-sm">
-                                <thead className="bg-slate-50 border-b border-slate-200 text-slate-400 text-[10px] uppercase font-bold tracking-wider">
-                                <tr>
-                                    <th className="p-5">Nombre Completo</th>
-                                    <th className="p-5">Curso / Grupo</th>
-                                    <th className="p-5">Correo Electrónico</th>
-                                    <th className="p-5 text-center">Acciones</th>
-                                </tr>
-                                </thead>
-                                <tbody className="divide-y divide-slate-100 text-slate-700">
-                                {usuarios.length > 0 ? (
-                                    usuarios.map((user) => (
-                                        <tr key={user.id} className="hover:bg-slate-50/60 transition-colors font-medium">
-                                            {/* Nombre con avatar simulado */}
-                                            <td className="p-5 font-bold text-slate-900">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-7 h-7 bg-teal-50 text-teal-700 rounded-lg flex items-center justify-center font-black text-xs uppercase shadow-sm shrink-0">
-                                                        {user.nombre ? user.nombre.charAt(0) : "U"}
-                                                    </div>
-                                                    <span>{user.nombre} {user.apellido}</span>
-                                                </div>
-                                            </td>
-                                            {/* Curso en fuente mono institucional */}
-                                            <td className="p-5">
-                                                    <span className="text-teal-700 font-bold font-mono bg-teal-50 px-2 py-0.5 rounded text-xs">
-                                                        {user.curso || "DAM"}
-                                                    </span>
-                                            </td>
-                                            <td className="p-5 text-slate-500 text-xs break-all">{user.email}</td>
-                                            {/* Botón Ver Perfil en verde institucional */}
-                                            <td className="p-5 text-center">
-                                                <button
-                                                    onClick={() => router.push(`/usuarios/${user.id}`)}
-                                                    className="text-xs bg-teal-700 hover:bg-teal-600 text-white font-bold px-4 py-1.5 rounded-xl transition-all shadow-sm"
-                                                >
-                                                    Ver Perfil
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={4} className="p-10 text-center text-slate-400 italic">
-                                            No hay alumnos registrados en el sistema actualmente.
-                                        </td>
-                                    </tr>
-                                )}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                )}
+
+                </div>
             </div>
+
+            {/* Footer Institucional */}
+            <footer className="absolute bottom-8 text-slate-400 text-xs tracking-wide font-medium z-10">
+                © {new Date().getFullYear()} Proyecto Intermodular LumaraFit
+            </footer>
         </div>
     );
 }

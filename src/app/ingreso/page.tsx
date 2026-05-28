@@ -16,12 +16,10 @@ export default function PaginaIngreso() {
             const respuesta = await axios.get(`http://localhost:8080/api/usuarios/email/${datos.email}`);
 
             if (respuesta.data && respuesta.data.id) {
-                // Guardamos todos los campos clave en el almacenamiento local
                 localStorage.setItem("usuarioId", respuesta.data.id);
                 localStorage.setItem("usuarioNombre", respuesta.data.nombre);
                 localStorage.setItem("usuarioEmail", respuesta.data.email);
 
-                // Mapeamos el rol que viene del backend de Java (asegúrate de que llegue como "ESTUDIANTE" o "PROFESOR")
                 const rolBackend = respuesta.data.rol ? respuesta.data.rol.toUpperCase() : "ESTUDIANTE";
                 localStorage.setItem("usuarioRol", rolBackend);
 
@@ -38,7 +36,6 @@ export default function PaginaIngreso() {
         <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
             <div className="bg-white p-8 rounded-3xl shadow-xl w-full max-w-sm border border-slate-200">
 
-                {/* Logotipo simulado institucional */}
                 <div className="flex flex-col items-center mb-6">
 
                     <h2 className="text-2xl font-black text-teal-700 tracking-tight">
@@ -70,7 +67,7 @@ export default function PaginaIngreso() {
                         />
                     </div>
 
-                    {/* Botón principal usando el Naranja Fuerte corporativo */}
+
                     <button
                         type="submit"
                         className="w-full bg-orange-600 hover:bg-orange-500 text-white font-extrabold py-3.5 rounded-xl transition-all shadow-md shadow-orange-600/10 active:scale-[0.98] mt-2 text-sm uppercase tracking-wider"
@@ -78,7 +75,6 @@ export default function PaginaIngreso() {
                         Entrar al Gimnasio
                     </button>
 
-                    {/* Enlace inferior usando el Verde Institucional */}
                     <p className="mt-6 text-center text-slate-400 text-xs font-medium">
                         ¿No tienes cuenta activa?{" "}
                         <button
@@ -90,11 +86,9 @@ export default function PaginaIngreso() {
                         </button>
                     </p>
                     <div className="border-t border-slate-100 my-4 pt-4">
-                        {/* BOTÓN NUEVO: Salir y volver al Gimnasio (Vista Invitado) */}
                         <button
                             type="button"
                             onClick={() => {
-                                // Limpiamos la sesión por si acaso para asegurar que entre como INVITADO puro
                                 localStorage.clear();
                                 localStorage.setItem("usuarioRol", "INVITADO");
                                 router.push("/gimnasio");

@@ -4,9 +4,6 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { PerfilFisicoResponse, UsuarioResponse } from "@/app/types";
 
-// ============================================================================
-// 🌟 DICCIONARIO DE PAUTAS ADAPTADO AL ESTILO DE LUMARA-FIT (Teal & Orange)
-// ============================================================================
 const PAUTAS_ENTRENAMIENTO = {
     ECTOMORFO: {
         objetivo: "Ganancia de masa muscular (Hipertrofia)",
@@ -106,17 +103,20 @@ export default function PaginaGimnasioGeneral() {
         { id: 3, titulo: "Zona Cardiovascular", descripcion: "Optimiza tu resistencia usando nuestras cintas y elípticas.", imagen: "/caminadorafp.jpeg" }
     ];
 
-    // ============================================================================
-    // 🌟 CONTROL DE PAUTA ACTIVA PARA EL ESTUDIANTE LOGUEADO
-    // ============================================================================
     const biotipoActual = (ultimoPerfil?.somatotipo?.toUpperCase() || null) as keyof typeof PAUTAS_ENTRENAMIENTO | null;
     const pautaActiva = biotipoActual ? PAUTAS_ENTRENAMIENTO[biotipoActual] : null;
 
     return (
-        <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col justify-between">
+        <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col justify-between relative overflow-hidden">
 
-            {/* 1. BARRA DE NAVEGACIÓN SUPERIOR */}
-            <header className="bg-teal-700 text-white shadow-md p-4">
+
+            <div
+                className="absolute inset-0 z-0 opacity-[0.04] bg-center bg-no-repeat bg-cover pointer-events-none"
+                style={{ backgroundImage: "url('/logo1.jpeg')" }}
+            />
+
+
+            <header className="bg-teal-700 text-white shadow-md p-4 z-10">
                 <div className="max-w-6xl mx-auto flex justify-between items-center">
                     <div className="flex items-center gap-3 cursor-pointer" onClick={() => router.push("/gimnasio")}>
                         <div className="w-8 h-8 bg-white text-teal-700 rounded-full flex items-center justify-center font-bold">LF</div>
@@ -134,18 +134,18 @@ export default function PaginaGimnasioGeneral() {
                 </div>
             </header>
 
-            <main className="max-w-6xl mx-auto p-6 md:p-10 w-full flex-grow space-y-12">
+
+            <main className="max-w-6xl mx-auto p-6 md:p-10 w-full flex-grow space-y-12 z-10">
                 {rol !== "INVITADO" && (
-                    <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl border border-slate-200 shadow-sm">
                         <h2 className="text-2xl font-extrabold text-slate-900">¡Hola de nuevo, {nombreUsuario}!</h2>
                         <p className="text-slate-500 text-sm mt-0.5">Bienvenido a tu espacio personal de entrenamiento institucional.</p>
                     </div>
                 )}
 
-                {/* ==================== VISTA COMPLETA DEL ESTUDIANTE ==================== */}
                 {rol === "ESTUDIANTE" && (
                     <section className="space-y-6">
-                        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                        <div className="bg-white/95 backdrop-blur-sm p-6 rounded-3xl border border-slate-200 shadow-sm">
                             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6">
                                 <div className="flex items-center gap-4">
                                     <div className="w-14 h-14 bg-gradient-to-br from-teal-600 to-teal-800 text-white rounded-2xl flex items-center justify-center text-xl font-black shadow-md">
@@ -170,7 +170,7 @@ export default function PaginaGimnasioGeneral() {
 
                             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                                 {/* Ficha académica */}
-                                <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3 h-fit">
+                                <div className="bg-slate-50/80 p-5 rounded-2xl border border-slate-200 space-y-3 h-fit">
                                     <h4 className="text-[10px] font-bold text-orange-600 uppercase tracking-widest border-b border-slate-200 pb-1.5">Ficha Académica</h4>
                                     <div className="text-xs">
                                         <span className="block font-bold text-slate-400 uppercase text-[8px]">Correo</span>
@@ -182,8 +182,7 @@ export default function PaginaGimnasioGeneral() {
                                     </div>
                                 </div>
 
-                                {/* Gráfica de barras antropométrica */}
-                                <div className="lg:col-span-2 bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                                <div className="lg:col-span-2 bg-slate-50/80 p-5 rounded-2xl border border-slate-200">
                                     <h4 className="text-[10px] font-bold text-orange-600 uppercase tracking-widest border-b border-slate-200 pb-1.5 mb-4">Gráfica Corporal</h4>
                                     {ultimoPerfil ? (
                                         <div className="space-y-4">
@@ -214,7 +213,7 @@ export default function PaginaGimnasioGeneral() {
                         </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-2">
-                            <div className="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                            <div className="lg:col-span-2 bg-white/95 backdrop-blur-sm p-6 rounded-3xl border border-slate-200 shadow-sm">
                                 <div className="flex justify-between items-center mb-4">
                                     <h4 className="text-[10px] font-bold text-orange-600 uppercase tracking-widest">
                                         📋 Mis Evaluaciones Registradas
@@ -224,7 +223,7 @@ export default function PaginaGimnasioGeneral() {
                                     </span>
                                 </div>
 
-                                <div className="overflow-x-auto rounded-xl border border-slate-100">
+                                <div className="overflow-x-auto rounded-xl border border-slate-100 bg-white">
                                     <table className="w-full text-left border-collapse text-xs">
                                         <thead>
                                         <tr className="bg-slate-50 border-b border-slate-100 text-slate-400 uppercase font-bold tracking-wider text-[9px]">
@@ -272,11 +271,8 @@ export default function PaginaGimnasioGeneral() {
                             </div>
                         </div>
 
-                        {/* ============================================================================ */}
-                        {/* 🌟 TARJETA DE RECOMENDACIONES DE ENTRENAMIENTO ESTILIZADA (Teal & Orange)     */}
-                        {/* ============================================================================ */}
                         {pautaActiva ? (
-                            <div className={`p-6 rounded-3xl border ${pautaActiva.colorBg} shadow-sm transition-all duration-300 animate-fadeIn`}>
+                            <div className={`p-6 rounded-3xl border backdrop-blur-sm ${pautaActiva.colorBg} shadow-sm transition-all duration-300 animate-fadeIn`}>
                                 <div className="flex items-center space-x-3 border-b pb-3 mb-4 border-teal-600/10">
                                     <div className={`w-3 h-6 rounded-full ${pautaActiva.colorBadge}`} />
                                     <div>
@@ -309,7 +305,7 @@ export default function PaginaGimnasioGeneral() {
                                 </div>
                             </div>
                         ) : (
-                            <div className="p-6 rounded-3xl border border-dashed border-slate-300 bg-white text-center">
+                            <div className="p-6 rounded-3xl border border-dashed border-slate-300 bg-white/90 text-center">
                                 <p className="text-slate-400 text-xs font-medium italic">
                                     Completa tu primera evaluación física para desbloquear tus recomendaciones deportivas y rangos de repetición personalizados.
                                 </p>
@@ -318,15 +314,14 @@ export default function PaginaGimnasioGeneral() {
                     </section>
                 )}
 
-                {/* ==================== VISTA COMPLETA DEL PROFESOR ==================== */}
                 {rol === "PROFESOR" && (
                     <section className="space-y-6">
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                             <div className="lg:col-span-2 space-y-4">
-                                <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                                <div className="bg-white/95 backdrop-blur-sm p-5 rounded-2xl border border-slate-200 shadow-sm">
                                     <h4 className="font-bold text-sm text-slate-900 mb-3">Seguimiento de Alumnos</h4>
                                     <div className="space-y-4">
-                                        <div className="border border-slate-100 p-3 rounded-xl hover:bg-slate-50 transition-colors text-xs">
+                                        <div className="bg-white border border-slate-100 p-3 rounded-xl hover:bg-slate-50 transition-colors text-xs">
                                             <div className="flex justify-between items-center mb-2">
                                                 <div>
                                                     <span className="font-bold text-slate-900 block">Jaidi Quijano</span>
@@ -346,7 +341,7 @@ export default function PaginaGimnasioGeneral() {
                                         </div>
 
                                         {usuarios.slice(0, 2).map((user) => (
-                                            <div key={user.id} className="border border-slate-100 p-3 rounded-xl text-xs">
+                                            <div key={user.id} className="bg-white border border-slate-100 p-3 rounded-xl text-xs">
                                                 <div className="flex justify-between items-center">
                                                     <div>
                                                         <span className="font-bold text-slate-900 block">{user.nombre} {user.apellido}</span>
@@ -362,21 +357,19 @@ export default function PaginaGimnasioGeneral() {
                                 </div>
                             </div>
 
-                            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm h-fit">
+                            <div className="bg-white/95 backdrop-blur-sm p-5 rounded-2xl border border-slate-200 shadow-sm h-fit">
                                 <h4 className="font-bold text-sm text-slate-900 mb-2">Añadir Alumno</h4>
                                 <form onSubmit={crearAlumno} className="space-y-2.5">
-                                    <input type="text" placeholder="Nombre" required className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-xs outline-none focus:border-teal-600" value={nuevoAlumno.nombre} onChange={(e) => setNuevoAlumno({...nuevoAlumno, nombre: e.target.value})} />
-                                    <input type="text" placeholder="Apellidos" required className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-xs outline-none focus:border-teal-600" value={nuevoAlumno.apellido} onChange={(e) => setNuevoAlumno({...nuevoAlumno, apellido: e.target.value})} />
-                                    <input type="email" placeholder="Correo Alumno" required className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-xs outline-none focus:border-teal-600" value={nuevoAlumno.email} onChange={(e) => setNuevoAlumno({...nuevoAlumno, email: e.target.value})} />
-                                    <input type="text" placeholder="Curso" required className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-xs outline-none focus:border-teal-600" value={nuevoAlumno.curso} onChange={(e) => setNuevoAlumno({...nuevoAlumno, curso: e.target.value})} />
+                                    <input type="text" placeholder="Nombre" required className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs outline-none focus:border-teal-600" value={nuevoAlumno.nombre} onChange={(e) => setNuevoAlumno({...nuevoAlumno, nombre: e.target.value})} />
+                                    <input type="text" placeholder="Apellidos" required className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs outline-none focus:border-teal-600" value={nuevoAlumno.apellido} onChange={(e) => setNuevoAlumno({...nuevoAlumno, apellido: e.target.value})} />
+                                    <input type="email" placeholder="Correo Alumno" required className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs outline-none focus:border-teal-600" value={nuevoAlumno.email} onChange={(e) => setNuevoAlumno({...nuevoAlumno, email: e.target.value})} />
+                                    <input type="text" placeholder="Curso" required className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs outline-none focus:border-teal-600" value={nuevoAlumno.curso} onChange={(e) => setNuevoAlumno({...nuevoAlumno, curso: e.target.value})} />
                                     <button type="submit" className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 rounded-lg transition-all text-xs uppercase">Registrar</button>
                                 </form>
                             </div>
                         </div>
                     </section>
                 )}
-
-                {/* ==================== SECCIONES EXCLUSIVAS DE INVITADO ==================== */}
                 {rol === "INVITADO" && (
                     <>
                         <section>
@@ -384,7 +377,7 @@ export default function PaginaGimnasioGeneral() {
                             <h4 className="text-2xl font-black text-slate-900 mb-6">Explora nuestro Centro Deportivo</h4>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 {clasesFitness.map((clase) => (
-                                    <div key={clase.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden cursor-pointer hover:scale-[1.03] hover:shadow-md transition-all duration-300 group">
+                                    <div key={clase.id} className="bg-white/95 backdrop-blur-sm rounded-2xl border border-slate-200 shadow-sm overflow-hidden cursor-pointer hover:scale-[1.03] hover:shadow-md transition-all duration-300 group">
                                         <div className="h-44 w-full bg-slate-100 overflow-hidden">
                                             <img src={clase.imagen} alt={clase.titulo} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                                         </div>
@@ -398,7 +391,7 @@ export default function PaginaGimnasioGeneral() {
                         </section>
 
                         <section className="w-full flex justify-center items-center py-6">
-                            <div className="w-52 h-52 rounded-full bg-gradient-to-br from-teal-950 to-teal-900 border-4 border-dashed border-teal-500 flex flex-col items-center justify-center text-center p-4 shadow-xl shrink-0 z-10 relative transform hover:scale-105 transition-transform duration-300 animate-bounce">
+                            <div className="w-52 h-52 rounded-full bg-gradient-to-br from-teal-950 to-teal-900 border-4 border-dashed border-teal-500 flex flex-col items-center justify-center text-center p-4 shadow-xl shrink-0 z-10 relative transform hover:scale-105 transition-transform duration-300">
                                 <div className="text-2xl mb-1"><span>💪</span></div>
                                 <p className="text-[9px] font-bold text-teal-200 tracking-tight uppercase">Complementos LumaraFit</p>
                                 <h4 className="text-[11px] font-black text-white uppercase tracking-tight my-0.5 italic">Proteina</h4>
@@ -408,7 +401,7 @@ export default function PaginaGimnasioGeneral() {
                             </div>
                         </section>
 
-                        <section className="bg-white p-6 rounded-2xl border border-slate-200 grid grid-cols-1 md:grid-cols-3 gap-6 text-center shadow-sm">
+                        <section className="bg-white/95 backdrop-blur-sm p-6 rounded-2xl border border-slate-200 grid grid-cols-1 md:grid-cols-3 gap-6 text-center shadow-sm">
                             <div>
                                 <span className="text-2xl block mb-2">📍</span>
                                 <h5 className="font-bold text-slate-900">Ubicación</h5>
@@ -429,8 +422,7 @@ export default function PaginaGimnasioGeneral() {
                 )}
             </main>
 
-            {/* 3. FOOTER CORPORATIVO */}
-            <footer className="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800">
+            <footer className="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 z-10">
                 <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p>&copy; {new Date().getFullYear()} FPLumara • LumaraFit. Todos los derechos reservados.</p>
                     <div className="flex gap-4">
